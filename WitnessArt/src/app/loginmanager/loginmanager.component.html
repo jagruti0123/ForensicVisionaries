@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="text-center">
+                    <div class="p-3 text-primary emphasis">
+                        <h2>Administator Login</h2>
+                    </div>
+                    <p anchor="align-items-center">Hey! enter your details to signin to your account</p>
+                    <hr><br>
+                </div>
+                <form [formGroup]="loginFormManager" (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <label class="form-label">UserName</label>
+                        <input formControlName="User_Name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <br>
+                    </div>
+                    <div class="row g-3 align-items-center">
+                        <div class="col-auto">
+                            <label for="inputPassword6" class="col-form-label">Password</label>
+                        </div>
+                        <div class="col-auto">
+                            <!--<label for="exampleInputPassword1" class="form-label">Password</label>-->
+                            <input formControlName="Password1" type="password" class="form-control" id="exampleInputPassword1"><br>
+                        </div>
+                        <div id="emailHelp" class="form-text">We'll never share your Mobile_No with anyone else.</div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Login</button><br>
+                    </div>
+                </form>
+                <a routerLink="/signup">Are you new Admin? Go to SignUp!!</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  

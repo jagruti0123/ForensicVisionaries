@@ -1,0 +1,135 @@
+<div class="container">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="products-tab" data-bs-toggle="tab" href="#products">Products</a>
+      </li>
+    </ul>
+  
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-chart-line"></i> Stock Level Report</h5>
+            <!-- Dashboard Content Here -->
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Size</th>
+                    <th>Color</th>
+                    <th>Quantity</th>
+                    <th>Stock Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let product of products; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.size }}</td>
+                    <td>{{ product.color }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>
+                      <span *ngIf="product.quantity < product.threshold" class="text-danger">Low Stock</span>
+                      <span *ngIf="product.quantity >= product.threshold" class="text-success">In Stock</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab">
+        <div class="row">
+          <!-- Product List Card -->
+          <div class="col-md-8">
+            <div class="card mt-3">
+              <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-tag"></i> Product List</h5>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Search product">
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>Size</th>
+                        <th>Color</th>
+                        <th>Quantity</th>
+                        <th>Threshold</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let product of products; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.size }}</td>
+                        <td>{{ product.color }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>{{ product.threshold }}</td>
+                        <td>
+                          <button class="btn btn-primary btn-sm" (click)="editProduct(i)">Edit</button>
+                          <button class="btn btn-danger btn-sm" (click)="deleteProduct(i)">Delete</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+  
+          <!-- New Product Card -->
+          <div class="col-md-4">
+            <div class="card mt-3">
+              <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-plus"></i> New Product</h5>
+                <form (ngSubmit)="addProduct()">
+                  <div class="mb-3">
+                    <label for="productName" class="form-label">Product</label>
+                    <input type="text" id="productName" class="form-control" [(ngModel)]="newProduct.name" name="name">
+                  </div>
+                  <div class="mb-3">
+                    <label for="productName" class="form-label">Size</label>
+                    <input type="text" id="productName" class="form-control" [(ngModel)]="newProduct.size" name="size">
+                  </div>
+                  <div class="mb-3">
+                    <label for="productName" class="form-label">Color</label>
+                    <input type="text" id="productName" class="form-control" [(ngModel)]="newProduct.color" name="color">
+                  </div>
+                  <div class="mb-3">
+                    <label for="productQuantity" class="form-label">Current Qty</label>
+                    <input type="number" id="productQuantity" class="form-control" [(ngModel)]="newProduct.quantity" name="quantity">
+                  </div>
+                  <div class="mb-3">
+                    <label for="productThreshold" class="form-label">Threshold</label>
+                    <input type="number" id="productThreshold" class="form-control" [(ngModel)]="newProduct.threshold" name="threshold">
+                  </div>
+                  <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

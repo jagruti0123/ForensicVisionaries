@@ -1,0 +1,76 @@
+<div class="container mt-3">
+    <h2>Search Product</h2>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Search product by name" [(ngModel)]="searchTerm">
+      <button class="btn btn-primary" (click)="searchProduct()">Search</button>
+    </div>
+  
+    <div *ngIf="filteredProducts.length > 0">
+      <h3>Product Details</h3>
+      <div *ngFor="let product of filteredProducts">
+        <table class="table table-bordered">
+          <tr>
+            <th>Product Name</th>
+            <td>{{ product.name }}</td>
+          </tr>
+          <tr>
+            <th>Size</th>
+            <td>{{ product.size }}</td>
+          </tr>
+          <tr>
+            <th>Color</th>
+            <td>{{ product.color }}</td>
+          </tr>
+          <tr>
+            <th>Quantity</th>
+            <td>{{ product.quantity }}</td>
+          </tr>
+          <tr>
+            <th>Stock Status</th>
+            <td>
+              <span *ngIf="product.quantity < product.threshold" class="text-danger">Low Stock</span>
+              <span *ngIf="product.quantity >= product.threshold" class="text-success">In Stock</span>
+            </td>
+          </tr>
+        </table>
+        <button *ngIf="product.quantity > 0" class="btn btn-success" (click)="toggleModal(product)">Book Product</button>
+        <span *ngIf="product.quantity === 0" class="text-danger">Out of Stock</span>
+        <hr>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Custom Modal -->
+  <div class="modal" tabindex="-1" [ngClass]="{'show': isModalOpen}" [ngStyle]="{'display': isModalOpen ? 'block' : 'none'}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Book Product</h5>
+          <button type="button" class="close" (click)="toggleModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <label>Quantity</label>
+            <input type="number" [(ngModel)]="bookingQuantity" min="1" [max]="selectedProduct?.quantity || 0" class="form-control">
+          </div>
+          <div>
+            <label>Size</label>
+            <input type="text" [(ngModel)]="bookingSize" class="form-control">
+          </div>
+          <div>
+            <label>Color</label>
+            <input type="text" [(ngModel)]="bookingColor" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="toggleModal()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="submitBooking()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Backdrop -->
+  <div class="modal-backdrop fade show" *ngIf="isModalOpen"></div>
+  
